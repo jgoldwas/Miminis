@@ -1,0 +1,43 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}My Page{% endblock %}
+
+{% block head %}
+  {% parent %}
+<style>
+      #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+{% endblock %}
+
+{% block content %}
+	<div class="row" style="padding: 10px">
+		<div id='map-canvas' class="mobile-12 large-12 columns" style="height: 300px;width:100%;"> </div>
+		{#<a href="/geotweet/auth/twitter">Login with Twitter</a> #}
+	</div>
+	<div class ="row">
+		<div class="mobile-12 columns">
+			{% if id %}
+				<input type="text" placeholder="Tweet" id="Tweet">
+				<br>
+				<button value="Tweet" class="small button" onclick='sendTweet();'>Tweet</button>
+			{% else %}
+				<a href="/geotweet/auth/twitter" class="small button">Login with Twitter</a>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block script %}
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script src="javascripts/oms.min.js"></script>
+<script src="javascripts/miminis.js"></script>
+<script>
+	google.maps.event.addDomListener(window, 'load', init);
+</script>
+{% endblock %}

@@ -1,0 +1,71 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width" />
+  <title>{% block title %}My Site{% endblock %}</title>
+  <link rel="stylesheet" href="stylesheets/foundation.min.css">
+  <link rel="stylesheet" href="stylesheets/normalize.css">
+  {% block head %}
+  {% endblock %}
+</head>
+<body class="off-canvas hide-extras">
+<!-- Navigation -->
+
+  <nav class="top-bar">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1>
+	  
+          <a href="#">
+          	Miminis  
+          </a>
+        </h1>
+      </li>
+    </ul>
+  </nav>
+ 
+  <!-- End Top Bar -->
+	  {% block content %}{% endblock %}
+
+
+
+
+
+    <!-- Footer -->
+
+      <footer class="row">
+        <div class="large-12 columns mobile-12"><hr>
+            <div class="row">
+
+              <div class="large-6 columns">
+                  <p>&copy; Copyright: Eric Yang</p>
+              </div>
+
+
+            </div>
+        </div>
+      </footer>
+
+    <!-- End Footer -->
+
+    </div>
+  </div>
+
+ <script src="javascripts/vendor/custom.modernizr.js"></script>
+ <script>
+  document.write('<script src=javascripts/vendor/' +
+  ('__proto__' in {} ? 'zepto' : 'jquery') +
+  '.js><\/script>')
+  </script>
+  <script src="javascripts/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  {% block script %}
+  {% endblock %}
+</body>
+</html>
+
