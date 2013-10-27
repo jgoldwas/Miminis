@@ -35616,3 +35616,9 @@ Express server listening on port 3000
     text: 'כל פעם שמתקשר נציג אחת המפלגות לשכנע אותי להצביע למפלגה שלו אני ישר מסכימה, אבל רק כדי שהוא יירד מהקו.',
     user: { profile_image_url: 'http://pbs.twimg.com/profile_images/2168145102/525626_10150812997047780_726757779_11764072_608379390_n_normal.jpg' } } ]
 [90mGET /search?q=miminis&lat=32.159374794893274&long=34.8088625623413 [32m200 [90m924ms[0m
+26 Oct 22:34:54 - [nodemon] restarting due to changes...
+26 Oct 22:34:54 - [nodemon] /home/eric/geotweet/app.js
+
+
+26 Oct 22:34:54 - [32m[nodemon] starting `node app.js`[0m
+Express server listening on port 3000
