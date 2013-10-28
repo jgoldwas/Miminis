@@ -6,11 +6,17 @@
 {% block head %}
   {% parent %}
 <style>
-      #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
+	#map-canvas {
+		height: 100%;
+		margin: 0px;
+		padding: 0px
+	}
+	#map_container img {
+		 max-width:none; 
+	}
+	.gmnoprint img { 
+		max-width: none !important; 
+	}
     </style>
 {% endblock %}
 
@@ -34,7 +40,7 @@
 
 
 {% block script %}
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
 <script src="javascripts/oms.min.js"></script>
 <script src="javascripts/miminis.js"></script>
 <script>

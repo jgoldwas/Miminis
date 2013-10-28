@@ -11,6 +11,7 @@
     "passport": "*",
     "passport-twitter":"*",
     "node-oauth":"*",
-    "oauth":"*"
+    "oauth":"*",
+    "mongoose":"*"
   }
 }
