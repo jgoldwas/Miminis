@@ -82,7 +82,12 @@ function parseData(data) {
 				for(var p = 0; p < miminis_windows.length; p++) {
 					if(miminis_windows[p]) miminis_windows[p].close();
 				}
-				infowindow.open(map, marker); 
+				if(map.getStreetView().getVisible()) {
+					infowindow.open(map.getStreetView(), this); 
+				}
+				else {
+					infowindow.open(map, this); 
+				}
 			});
 			oms.addMarker(marker);
 		}
