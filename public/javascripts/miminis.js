@@ -63,12 +63,20 @@ function parseData(data) {
 	var gm = google.maps;
 	var iw = new gm.InfoWindow();
 	oms.addListener('click', function(marker, event) {
-		iw.setContent(marker.desc);
-		iw.open(map, marker);
+		if(!map.getStreetView().getVisible()) {
+			iw.setContent(marker.desc);
+			iw.open(map, marker);
+		}
 	});
 	oms.addListener('spiderfy', function(markers) {
-		iw.close();
+		if(!map.getStreetView().getVisible()) {
+			iw.close();
+		}
 	});
+
+
+        google.maps.event.addListener(map.getStreetView(), 'pano_changed', function() {
+	  });
 	$.each(data.statuses, function(i, item) {		
 		if(item.geo) {
 			var position = new google.maps.LatLng(item.geo.coordinates[0], item.geo.coordinates[1]);
