@@ -34,6 +34,9 @@
 			{% else %}
 				<a href="/geotweet/auth/twitter" class="small button">Login with Twitter</a>
 			{% endif %}
+			{% if not id2 %}
+				<a href="/geotweet/auth/instagram" class="small button">Login with Instagram</a>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

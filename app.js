@@ -14,6 +14,7 @@ var passport = require('passport');
 var config = require('./appinfo');
 var app = express();
 var TwitterStrategy = require('passport-twitter').Strategy;
+var InstagramStrategy = require('passport-instagram').Strategy;
 var users = [];
 
 
@@ -54,6 +55,19 @@ passport.use(new TwitterStrategy({
 
 	}
 ));
+passport.use(new InstagramStrategy({
+	clientID: config.keys['instClientId'],
+	clientSecret: config.keys['instClientSec'],
+	callbackURL: "http://173.49.104.120/geotweet/auth/instagram/callback" },
+	function(token, tokenSecret, profile, done) {
+		process.nextTick(function () {
+		var user = users[profile.id] || 
+				(users[profile.id] = { id: profile.id, name: profile.username, token:token, tokenSecret: tokenSecret });
+			return done(null, user);
+		});
+
+	}
+));
 
 passport.serializeUser(function(user, done) {
 	done(null, user);
@@ -69,7 +83,14 @@ app.post('/sendTweet', search.tweet);
 app.get('/search', search.search);
 app.get('/users', user.list);
 app.get('/auth/twitter', passport.authenticate('twitter'));
+app.get('/auth/instagram/callback', passport.authenticate('instagram', { failureRedirect: '/fail'}),   
+	function(req, res) {
+		req.session.instagram = req.user.token;
+		res.redirect('/geotweet');
+	});
+app.get('/auth/instagram', passport.authenticate('instagram'));
 app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/fail'}),   
+
 function(req, res) {
 	var t = req.user.id;
 	req.session.idx = t;
@@ -83,6 +104,9 @@ app.get('/logout', function(req, res){
 	req.logout();
  	res.redirect('/');
 });
+
+app.get('/searchInstagram', search.searchInstagram);
+
 
 http.createServer(app).listen(app.get('port'), function(){
  	console.log('Express server listening on port ' + app.get('port'));

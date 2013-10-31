@@ -1,4 +1,5 @@
 var config = require('../appinfo');
+var https = require('https');
 var OAuth = require('oauth');
 var util = require('util');
 var Worker = require('webworker-threads').Worker;
@@ -13,6 +14,24 @@ var oauth = new OAuth.OAuth(
 
 var url = require('url');
 
+
+
+exports.searchInstagram = function(req, res) {
+	var queryData = url.parse(req.url, true).query;	
+	var buffer = [];
+
+	https.get("https://api.instagram.com/v1/locations/search?lat=48.858844&lng=2.294351&access_token=638398988.f59def8.90c75a30f364432e9cc40c228f0f143d", function(result) {
+		result.setEncoding('utf8');
+		result.on('data', function(chunk) {
+			buffer.push(chunk);
+		});
+		result.on('end', function() {
+			res.send(buffer.join(''));
+		});
+	});
+}
+
+
 exports.search = function(req, res){
 	var queryData = url.parse(req.url, true).query;
 	//res.send(queryData);
@@ -23,25 +42,7 @@ exports.search = function(req, res){
 		  function(e, data, resp) {
 		      var ret = new Array();
 		      var obj = JSON.parse(data).statuses;
-			/*var counter = 0;
-			for(var i = 0; i<obj.length; i++) {
-				(function() {
-					var j = i;
-					var innerret = ret;
-					process.nextTick(function() {
-						var item = obj[j];
-						if(item) {
-							if(item.geo) {
-								innerret[counter] =  {geo:{coordinates: item.geo.coordinates}, text:item.text, user: {profile_image_url: item.user.profile_image_url}};
-								counter++;
-							}
-						}
-					});
-				})();
-				console.log(ret);
-			}
-		      console.log(ret);*/
-var process = new Worker(function() {
+		var process = new Worker(function() {
     function process (obj) {
 	var ret = new Array();
 	var counter = 0;
