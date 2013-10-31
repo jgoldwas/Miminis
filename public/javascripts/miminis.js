@@ -8,7 +8,7 @@ function sendTweet() {
 	navigator.geolocation.getCurrentPosition(function (position) {
 		var data = {tweet: tweet, latitude: position.coords.latitude, longitude: position.coords.longitude};
 		$.ajax({
-			url: "/geotweet/sendTweet",
+			url: "sendTweet",
 			type: "POST",
 			data: data,
 			success: getTweets,
@@ -43,7 +43,7 @@ function init() {
 function getTweets() {
 	console.log('start');
 	navigator.geolocation.getCurrentPosition(function (position) {   
-		var urlx = encodeURI("/geotweet/search?q=miminis&lat="+position.coords.latitude+"&long="+position.coords.longitude);
+		var urlx = encodeURI("search?q=miminis&lat="+position.coords.latitude+"&long="+position.coords.longitude);
 		console.log("Boo");
 		$.ajax({
 			url: urlx,
