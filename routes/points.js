@@ -35,8 +35,10 @@ exports.searchInstagram = function(req, res) {
 exports.search = function(req, res){
 	var queryData = url.parse(req.url, true).query;
 	//res.send(queryData);
-
-	oauth.get('https://api.twitter.com/1.1/search/tweets.json?count=100&geocode='+queryData.lat+','+queryData["long"]+',1mi',
+    
+    //line below is the syntax I would use for searching #miminis hashtag
+	//oauth.get('https://api.twitter.com/1.1/search/tweets.json?q=%23miminis&src=typd&count=100&geocode='+queryData.lat+','+queryData["long"]+',1mi',
+    oauth.get('https://api.twitter.com/1.1/search/tweets.json?count=100&geocode='+queryData.lat+','+queryData["long"]+',1mi',
 		  config.keys['accessToken'],
 		  config.keys['accessSecret'],
 		  function(e, data, resp) {
@@ -49,7 +51,12 @@ exports.search = function(req, res){
 	for(var i = 0; i<obj.length; i++) {
 		var item = obj[i];
 		if(item.geo) {
-			ret[counter] = {geo:{coordinates: item.geo.coordinates}, text:item.text, user: {profile_image_url: item.user.profile_image_url}};
+                                 ret[counter] = {
+                                 geo: {coordinates: item.geo.coordinates},
+                                 text: item.text,
+                                 user: {profile_image_url: item.user.profile_image_url},
+                                 url: "https://twitter.com/"+ item.user.screen_name + "/status/" + item.id_str,
+                                 };
 			counter++;
 		}
 	}
@@ -81,4 +88,19 @@ exports.tweet = function(req, res) {
 		        res.send("Hello world");
 		});
 }
+
+
+
+exports.search2 = function(req, res){
+	var queryData = url.parse(req.url, true).query;
+	//res.send(queryData);
+    
+	oauth.get('https://api.twitter.com/1.1/search/tweets.json?count=100&geocode='+queryData.lat+','+queryData["long"]+',1mi',
+              config.keys['accessToken'],
+              config.keys['accessSecret'],
+              function(e, data, resp) {
+		      res.send(data);
+              
+              });
+};
 

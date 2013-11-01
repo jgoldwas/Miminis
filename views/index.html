@@ -23,7 +23,7 @@
 {% block content %}
 	<div class="row" style="padding: 10px">
 		<div id='map-canvas' class="mobile-12 large-12 columns" style="height: 300px;width:100%;"> </div>
-		{#<a href="/geotweet/auth/twitter">Login with Twitter</a> #}
+		{#<a href="/auth/twitter">Login with Twitter</a> #}
 	</div>
 	<div class ="row">
 		<div class="mobile-12 columns">
@@ -32,10 +32,10 @@
 				<br>
 				<button value="Tweet" class="small button" onclick='sendTweet();'>Tweet</button>
 			{% else %}
-				<a href="/geotweet/auth/twitter" class="small button">Login with Twitter</a>
+				<a href="/auth/twitter" class="small button">Login with Twitter</a>
 			{% endif %}
 			{% if not id2 %}
-				<a href="/geotweet/auth/instagram" class="small button">Login with Instagram</a>
+				<a href="/auth/instagram" class="small button">Login with Instagram</a>
 			{% endif %}
 		</div>
 	</div>

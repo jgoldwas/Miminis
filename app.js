@@ -45,7 +45,7 @@ if ('development' == app.get('env')) {
 passport.use(new TwitterStrategy({
 	consumerKey: config.keys['appId'],
 	consumerSecret: config.keys['appSecret'],
-	callbackURL: "http://173.49.104.120/geotweet/auth/twitter/callback" },
+	callbackURL: "http://127.0.0.1:3000/auth/twitter/callback" },
 	function(token, tokenSecret, profile, done) {
 		process.nextTick(function () {
 		var user = users[profile.id] || 
@@ -58,7 +58,7 @@ passport.use(new TwitterStrategy({
 passport.use(new InstagramStrategy({
 	clientID: config.keys['instClientId'],
 	clientSecret: config.keys['instClientSec'],
-	callbackURL: "http://173.49.104.120/geotweet/auth/instagram/callback" },
+	callbackURL: "http://127.0.0.1:3000/auth/instagram/callback" },
 	function(token, tokenSecret, profile, done) {
 		process.nextTick(function () {
 		var user = users[profile.id] || 
@@ -81,12 +81,13 @@ passport.deserializeUser(function(id, done) {
 app.get('/', routes.index);
 app.post('/sendTweet', search.tweet);
 app.get('/search', search.search);
+app.get('/search2', search.search2);
 app.get('/users', user.list);
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/instagram/callback', passport.authenticate('instagram', { failureRedirect: '/fail'}),   
 	function(req, res) {
 		req.session.instagram = req.user.token;
-		res.redirect('/geotweet');
+		res.redirect('/');
 	});
 app.get('/auth/instagram', passport.authenticate('instagram'));
 app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/fail'}),   
@@ -96,7 +97,7 @@ function(req, res) {
 	req.session.idx = t;
 	req.session.token = req.user.token;
 	req.session.tokenSecret = req.user.tokenSecret;
-	res.redirect('/geotweet');
+	res.redirect('/');
 });
 	
 
